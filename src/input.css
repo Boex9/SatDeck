@@ -1,0 +1,121 @@
+@import "tailwindcss";
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+
+@theme {
+    --color-SatDeck_Primary: #030e13;
+    --color-SatDeck_Primary_Dark: #04161e;
+    --color-SatDeck_Primary_DarkHover: #010f13;
+    --color-SatDeck_Accents: #208ea8;
+    --color-SatDeck_Accents_dark: #155160;
+    --color-SatDeck_List_light: #134860;
+    --color-SatDeck_List_dark: #082c3c;
+}
+
+@font-face {
+    font-family: 'Rajdhani'; /* The name YOU assign */
+    src: url('/Fonts/Rajdhani-Light.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Rajdhani'; /* The name YOU assign */
+    src: url('/Fonts/Rajdhani-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Rajdhani'; /* The name YOU assign */
+    src: url('/Fonts/Rajdhani-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Rajdhani'; /* The name YOU assign */
+    src: url('/Fonts/Rajdhani-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'helvetica'; /* The name YOU assign */
+    src: url('/Fonts/Helvetica.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'helvetica-light'; /* The name YOU assign */
+    src: url('/Fonts/Helvetica-light.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'helvetica-bold'; /* The name YOU assign */
+    src: url('/Fonts/Helvetica-Bold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'notosans'; /* The name YOU assign */
+    src: url('/Fonts/NotoSans.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+.satellite-list-scrollbar{
+    scrollbar-color: #0ea5e9 #1e293b;
+}
+.satellite-list-scrollbar::-webkit-scrollbar {
+    width: 110px;
+}
+.satellite-list-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #0ea5e9;
+    border-radius: 8px;
+}
+
+.blink-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #28a745; /* green */
+    display: inline-block;
+    /* center baseline if you want inline */
+    vertical-align: middle;
+    /* animation */
+    animation: blink 1s infinite ease-in-out;
+}
+
+/* Blinking keyframes: fade + subtle scale/pulse */
+@keyframes blink {
+    0%   { opacity: 1; }
+    50%  { opacity: 0.15; }
+    100% { opacity: 1; }
+}
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .blink-dot {
+        animation: none;
+        opacity: 1;
+    }
+}
+
+
+.loader {
+
+    border: 3px solid #010f13;
+    border-top-color: #208ea8;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
