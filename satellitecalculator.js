@@ -33,6 +33,49 @@ function calculateSpeedKmH(velocityEci) {
     return speedKms * 3600; // convert to km/h
 }
 
+function vecSub(a,b){
+    return { x:a.x-b.x, y:a.y-b.y, z:a.z-b.z };
+}
+
+function vecDot(a,b){
+    return a.x*b.x + a.y*b.y + a.z*b.z;
+}
+
+function vecMag(v){
+    return Math.sqrt(vecDot(v,v));
+}
+
+// Earth rotation observer velocity (ECEF)
+function observerVelocityECEF(obsEcf){
+    const omega = 7.2921150e-5; // rad/s
+    return {
+        x: -omega * obsEcf.y,
+        y:  omega * obsEcf.x,
+        z:  0
+    };
+}
+
+
+
+export function azimuthToCompass(deg){
+      const dirs = [
+        "N","NNE","NE","ENE","E","ESE","SE","SSE",
+        "S","SSW","SW","WSW","W","WNW","NW","NNW","N"
+    ];
+    return dirs[Math.round(deg / 22.5)];
+}
+
+export function eciToEcfVelocity(vEci, rEcf){
+    const omega = 7.2921150e-5; // rad/s
+
+    return {
+        x: vEci.x + omega * rEcf.y,
+        y: vEci.y - omega * rEcf.x,
+        z: vEci.z
+    };
+}
+
+
 export function updateGPData(tle1, tle2 ,tledata) {
     const now = new Date();
     const satrec = satellite.twoline2satrec(tle1, tle2);
@@ -43,6 +86,7 @@ export function updateGPData(tle1, tle2 ,tledata) {
     const positionEci = pv.position;
     const velocityEci = pv.velocity;
     const positionEcf = satellite.eciToEcf(positionEci, gmst);
+    const velocityEcf = eciToEcfVelocity(velocityEci,positionEcf);
     const geodetic = satellite.eciToGeodetic(positionEci, gmst);
 
     // --- Update object ---
@@ -51,13 +95,41 @@ export function updateGPData(tle1, tle2 ,tledata) {
     const meanAnomalyNow = satrec.mo;
 
     let lookAngles = null;
+    let rangeRate = null;
 
     if (observerReady) {
-    lookAngles = satellite.ecfToLookAngles(
-        observer,
-        positionEcf
-    );
-    }
+
+    
+    const obsEcf = satellite.geodeticToEcf(observer);
+    const obsVel = observerVelocityECEF(obsEcf);
+
+    const rho = {
+        x: positionEcf.x - obsEcf.x,
+        y: positionEcf.y - obsEcf.y,
+        z: positionEcf.z - obsEcf.z
+    };
+
+    const rhoDot = {
+        x: velocityEcf.x - obsVel.x,
+        y: velocityEcf.y - obsVel.y,
+        z: velocityEcf.z - obsVel.z
+    };
+
+    const range = Math.sqrt(rho.x**2 + rho.y**2 + rho.z**2);
+
+    const rangeRate = 
+        (rho.x*rhoDot.x + rho.y*rhoDot.y + rho.z*rhoDot.z) / range;
+
+    const look = satellite.ecfToLookAngles(observer, positionEcf);
+    
+
+    lookAngles = {
+        azimuth:   look.azimuth,
+        elevation: look.elevation,
+        rangeKm:   look.rangeSat,
+        rangeRate: rangeRate
+    };
+}
 
 
 
@@ -79,12 +151,18 @@ export function updateGPData(tle1, tle2 ,tledata) {
         altitude: geodetic.height, // meters
         meanAnomaly : meanAnomalyNow * (180/Math.PI),
 
-          topocentric: lookAngles ? {
-            azimuth:   lookAngles.azimuth * (180 / Math.PI),
-            elevation: lookAngles.elevation * (180 / Math.PI),
-            rangeKm:   lookAngles.rangeSat
-            } : null,
         
+        topocentric: lookAngles ? {
+        azimuth:   lookAngles.azimuth * (180 / Math.PI),
+        azimuth_direction : azimuthToCompass(lookAngles.azimuth),
+        elevation: lookAngles.elevation * (180 / Math.PI),
+        rangeKm:   lookAngles.rangeKm,
+        rangeRate: lookAngles.rangeRate    // km/s
+    } : null,
+
+            
+            
+           
 
         // Orbital geometry (semi-static, but recomputed anyway)
 
@@ -94,14 +172,17 @@ export function updateGPData(tle1, tle2 ,tledata) {
             raan: satrec.nodeo * (180/Math.PI), 
             apogeeAltitude: semiMajorAxisKm * (1 + satrec.ecco) - earthRadiusKm,
             perigeeAltitude: semiMajorAxisKm * (1 - satrec.ecco) - earthRadiusKm,
-            orbitalPeriod: 2 * Math.PI * Math.sqrt(Math.pow(satrec.a, 3) / 398600.4418),
+            orbitalPeriod: (2 * Math.PI * Math.sqrt(Math.pow(semiMajorAxisKm, 3) / 398600.4418))/60,
     };
+     
     
     Sat_Data.orbitalRegime = classifyOrbitalRegime(Sat_Data);
      const event = new CustomEvent('satelliteUpdated', { detail: Sat_Data });
 
     window.dispatchEvent(event);
 }
+
+
 
 function classifyOrbitalRegime(sat) {
     const altitudeKm = (sat.altitude);

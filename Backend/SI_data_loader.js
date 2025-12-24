@@ -1,5 +1,6 @@
-import{Sat_Data,satellites_map_array} from '../satellitecalculator.js'
+import{azimuthToCompass,Sat_Data,satellites_map_array} from '../satellitecalculator.js'
 import { updateOrbitDuration } from './OrbitInputManager.js';
+import { observer } from '../user_location_manager.js';
 
 
 // IT TAKES THE DATA FROM OTHER SCRIPTS AND THEN ASSIGNS THOSE DATA VALUES TO THE RESPECTIVE DOM ELEMENTS
@@ -32,12 +33,11 @@ const semiMajorAxisSpan = document.getElementById("SI_Semi_Major_Axis");
 const apogeeAltitudeSpan = document.getElementById("SI_Apogee_altitude");
 const perigeeAltitudeSpan = document.getElementById("SI_Preigee_altitude");
 const orbitalPeriodSpan = document.getElementById("SI_Orbital_Period");
-const groundTrackCycleSpan = document.getElementById("SI_Ground_track_cycle");
 const eccentricitySpan = document.getElementById("SI_Eccentricity");
 const inclinationSpan = document.getElementById("SI_Inclination");
 const meanAnomalySpan = document.getElementById("SI_Mean_Anomaly");
-const orbitPeriodSpan = document.getElementById("SI_Orbit_Period");
 const raanSpan = document.getElementById("SI_RAAN");
+const user_position_span = document.getElementById("user_location");
 
 
 const noradIDSpan = document.getElementById("Norad_ID");
@@ -91,10 +91,24 @@ if(window.satlistready === true)
 
     noradIDSpan.textContent = Sat_Data.norad_ID;
     Satnamediv.textContent =  Sat_Data.name;
+    const az = Sat_Data.topocentric.azimuth;
+    const compass = azimuthToCompass(az);
 
-    Azimuthspan.textContent = Number(Sat_Data.topocentric.azimuth).toFixed(4);
+    Azimuthspan.innerText = `${az.toFixed(1)}° (${compass})`;
+    Elevationspan.textContent = Number(Sat_Data.topocentric.elevation).toFixed(5);
+        
+    Range.textContent = Sat_Data.topocentric.rangeKm;
+    RangeRate.textContent=Sat_Data.topocentric.rangeRate;
+    const rr = Sat_Data.topocentric.rangeRate;
 
-    const durationInput = document.getElementById("durationInput");
+    SI_Range_Rate.innerText =
+    `${rr.toFixed(3)} km/s ${rr < 0 ? "(Approaching)" : "(Receding)"}`;
+    const RAD2DEG = 180 / Math.PI;
+
+    user_position_span.textContent =
+    `Your Location :- Lat: ${(observer.latitude * RAD2DEG).toFixed(5)}°  Lon: ${(observer.longitude * RAD2DEG).toFixed(5)}°`;
+
+
 
     // enforce min/max dynamically
 
@@ -108,9 +122,9 @@ if(window.satlistready === true)
 
 
 const LIMITS = {
-    minutes: { min: 10, max: 1440 },
-    hours:   { min: 1, max: 24 },
-    days:    { min: 1, max: 30 }
+    minutes: { min: 10, max: Infinity },
+    hours:   { min: 1, max: Infinity },
+    days:    { min: 1, max: Infinity}
 };
 
 const durationInput = document.getElementById("durationInput");

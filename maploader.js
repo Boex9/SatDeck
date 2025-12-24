@@ -1,5 +1,7 @@
 import { calculateGroundTrack , getSunLatLon} from './satellitecalculator.js';
 import { orbitDurationMinutes } from './Backend/OrbitInputManager.js';
+import { observer, observerReady } from "./user_location_manager.js";
+
 const map = L.map('map', { 
     center: [20, 77], 
     zoom: 3, 
@@ -89,38 +91,29 @@ let terminator = L.terminator({
 
 let userMarker = null;
 
-function addUserMarker(lat, lon) {
-    if(userMarker) map.removeLayer(userMarker); // remove previous marker if any
 
-    userMarker = L.circleMarker([lat, lon], {
-        radius: 1,          // tiny point
-        color: 'red',    // border
-        fillOpacity: 0.9
-    }).addTo(map);
 
-    // Optional: center map on user
-    // map.setView([lat, lon], 5);
+
+function updateUserMarker(){
+
+    if(!observerReady || observer.latitude === null) return;
+
+    const lat = observer.latitude * 180 / Math.PI;
+    const lon = observer.longitude * 180 / Math.PI;
+
+    if(!userMarker){
+        userMarker = L.circleMarker([lat, lon], {
+            radius: 1,
+            color: "red",
+            fillOpacity: 0.9
+        }).addTo(map);
+    }
+    else{
+        userMarker.setLatLng([lat, lon]);
+    }
 }
 
-
-
-navigator.geolocation.getCurrentPosition(
-    (position) => {
-        const { latitude, longitude } = position.coords;
-        addUserMarker(latitude, longitude);
-    },
-    (err) => {
-        console.error("Could not get user location:", err);
-    },
-    { enableHighAccuracy: true },
-);
-
-navigator.geolocation.getCurrentPosition(
-  (pos) => {
-  },
-  (err) => console.error(err),
-  { enableHighAccuracy: true }
-);
+setInterval(updateUserMarker,1000);
 
 
 terminator.setTime();        // sets to current time

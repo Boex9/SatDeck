@@ -1,4 +1,5 @@
 import  { Satellites_array} from "./tle_fetcher.js";
+import { setCustomObserver, requestHomeObserver } from "../user_location_manager.js";
 
 var satdata = null;
 export var satlistready;
@@ -81,6 +82,7 @@ export function initSatelliteSearch(satellites) {
     // 🔹 Disable the button (kept for compatibility, but does nothing)
     Search_Button.disabled = true;
 }
+
 
 
 

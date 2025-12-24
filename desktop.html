@@ -15,23 +15,21 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 
-<body class="bg-SatDeck_Primary flex flex-col h-screen">
+<body class="bg-SatDeck_Primary flex flex-col h-screen ">
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 
     <!-- Fixed Header -->
-    <div id="Header" class="bg-SatDeck_Primary_Dark h-12 w-full  flex flex-row items-center shrink-0">
-        <div class="h-full p-2 relative w-full  bg-SatDeck_Primary flex items-center border-b border-SatDeck_Accents
-                        after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after=:h-3 after:pointer-events-none
-                        after:bg-linear-to-t after:from-SatDeck_Accents_dark/50 after:to-transparent">
+    <div id="Header" class="_Dark h-12 w-full  flex flex-row items-center shrink-0">
+        <div class="h-full p-2 relative w-full  bg-SatDeck_Primary flex items-center border-b border-SatDeck_Accents">
             <img src="./Icons/SatDeck_Logo.png" alt="SatDeck Logo" class="h-full object-contain">
         </div>
     </div>
 
     <!-- Content area that takes remaining height -->
     <div id="Content"
-        class="w-full flex-1 overflow-y-auto flex flex-row min-h-0 gap-y-1 border-SatDeck_Accents border-2 satellite-list-scrollbar ">
+        class="w-full flex-1 overflow-y-auto flex flex-row min-h-0 gap-y-1 satellite-list-scrollbar ">
             <div id="tooltip"
                 class="fixed hidden px-2 py-1 text-sm text-white bg-black font-bold font-[Rajdhani]
                 shadow-lg pointer-events-none z-[9999] max-w-xs break-words text-center"></div>
@@ -50,16 +48,18 @@
                 >
             </div>
 
-            <div id="sat_container" class="border border-SatDeck_Accents flex flex-col flex-1 w-full bg-transparent overflow-y-auto gap-y-1"></div>
-            <div id="satellite_count" class="flex h-fit w-full border border-SatDeck_Accents text-white text-xl font-[Rajdhani] font-bold p-0.5 justify-center"></div>
+            <div id="sat_container" class="flex flex-col flex-1 w-full bg-transparent overflow-y-auto gap-y-1"></div>
+            <div id="satellite_count" class="flex h-fit w-full  text-white text-xl font-[Rajdhani] font-bold p-0.5 justify-center"></div>
 
         </div>
-        <div id="Center_Section" class="w-[50vw] border border-blue-100 h-full ">
-            <div id="Top View" class="w-full h-1/2 border border-red-100 flex flex-row">
-                <div id="Data_Section" class="w-1/2 h-full  p-4 overflow-y-auto">
+        <div id="Center_Section" class="w-[50vw] h-full ">
+            <div id="Top View" class="w-full h-1/2 flex flex-row">
+                <div id="Data_Section" class="w-1/2 h-full rounded-3xl  p-4 overflow-y-auto 
+                backdrop-blur-lg
+                        ">
                     <h1 class="text-cyan-300 font-[Rajdhani] text-2xl">Currently Viewing:</h1>
                     <div class="flex flex-row items-center ">
-                        <span id="Sat_Name" class="text-white font-[Rajdhani] text-4xl font-bold w-full">ISS (Zaraya)</span>
+                        <span id="Sat_Name" class="text-white font-[Rajdhani] text-4xl font-bold w-full ">ISS (Zaraya)</span>
                     </div>
                     <div class="flex flex-row items-center ">
                         <span class="text-cyan-400 font-[Rajdhani] text-xl  w-full">NORAD ID: <span id="Norad_ID" class="text-cyan-400 font-[Rajdhani] text-xl">23141</span></span>
@@ -137,16 +137,16 @@
                             
                             <div id="customlocationfields" class="flex flex-row w-fit ml-2 gap-1">
                                  <span class="font-[Rajdhani] text-xl text-gray-400 ">Lat</span>
-                                <input placeholder="0" class="w-18 text-xl text-center font-[Rajdhani] font-bold border-2 border-transparent text-white px-2 focus:outline-none focus:border-SatDeck_Accents hover:border-SatDeck_Accents_dark hover:border-2">
+                                <input id="lat_entry" placeholder="0" value="40.7128°" class="w-18 text-xl text-center font-[Rajdhani] font-bold border-2 border-transparent text-white px-2 focus:outline-none focus:border-SatDeck_Accents hover:border-SatDeck_Accents_dark hover:border-2">
                                 <span class="font-[Rajdhani] text-xl text-gray-400 ">Long</span>
-                                <input placeholder="0" class="w-18 text-xl text-center font-[Rajdhani] font-bold border-2 border-transparent text-white px-2 focus:outline-none focus:border-SatDeck_Accents hover:border-SatDeck_Accents_dark hover:border-2">
+                                <input id="long_entry" placeholder="0" value="-74.0060°" class="w-18 text-xl text-center font-[Rajdhani] font-bold border-2 border-transparent text-white px-2 focus:outline-none focus:border-SatDeck_Accents hover:border-SatDeck_Accents_dark hover:border-2">
                            
                             </div>
                             
                             
                         </div>
                         
-                        <span class="text-gray-400 font-[Rajdhani] text-md font-bold w-full "
+                        <span id="user_location" class="text-gray-400 font-[Rajdhani] text-md font-bold w-full "
                         onmouseenter="showTooltip(event, 'The cordinates of your selected location')"
                         onmouseleave="hideTooltip()">
                         Location Co-ordinates : 40.7128 -74.0060</span>
@@ -268,9 +268,9 @@
                     </div>
                     
                 </div>
-                <div id="3D_Visualizer" class="w-1/2 h-full border border-red-100"></div>
+                <div id="3D_Visualizer" class="w-1/2 h-full "></div>
             </div>
-            <div id="map" class="w-full h-1/2 border border-red-100 "></div>
+            <div id="map" class="w-full h-1/2  "></div>
         </div>
 
 
@@ -427,23 +427,22 @@
             <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">Azimuth:</span>
-                <span id="SI_Azimuth" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center"  style="font-family: Rajdhani, sans-serif;"></span>
+                <span id="SI_Azimuth" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center" style="font-family: Rajdhani, sans-serif;"></span>
             </div>
             <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">Elevation:</span>
-                <span id="SI_Elevation" class="text-gray-200 text-lg w-1/2 pl-2 font-medium text-center"
-                style="font-family: helvetica-bold,sans-serif;"></span>
+                <span id="SI_Elevation" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center" style="font-family: Rajdhani,sans-serif;"></span>
             </div>
             <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">Range:</span>
-                <span id="SI_Range" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center"></span>
+                <span id="SI_Range" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center" style="font-family: Rajdhani,sans-serif;"></span>
             </div>
             <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">Range Rate:</span>
-                <span id="SI_Range_Rate" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center "></span>
+                <span id="SI_Range_Rate"class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center" style="font-family: Rajdhani,sans-serif;"></span>
             </div>
 
 
