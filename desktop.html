@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 
-<body class="bg-SatDeck_Primary flex flex-col h-screen ">
+<body class="bg-[url('/Icons/SatDeck_background.png')] flex flex-col h-screen ">
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
@@ -48,13 +48,23 @@
                 >
             </div>
 
-            <div id="sat_container" class="flex flex-col flex-1 w-full bg-transparent overflow-y-auto gap-y-1"></div>
+            <div id="sat_container" class="flex flex-col flex-1 w-full bg-transparent overflow-y-auto gap-y-1">
+                 <!-- Loading overlay -->
+    <div id="sat_list_loader"
+         class="absolute inset-0 flex items-center justify-center
+                bg-black/60 backdrop-blur-[2px] z-10 ">
+        <div class="flex flex-col items-center gap-2">
+            <div class="w-8 h-8 border-2 border-cyan-300/30 border-t-cyan-400 rounded-full animate-spin"></div>
+            <span class="text-cyan-200 text-sm font-semibold">Loading SatDeck</span>
+        </div>
+    </div>
+            </div>
             <div id="satellite_count" class="flex h-fit w-full  text-white text-xl font-[Rajdhani] font-bold p-0.5 justify-center"></div>
 
         </div>
         <div id="Center_Section" class="w-[50vw] h-full ">
             <div id="Top View" class="w-full h-1/2 flex flex-row">
-                <div id="Data_Section" class="w-1/2 h-full rounded-3xl  p-4 overflow-y-auto 
+                <div id="Data_Section" class="w-1/2 h-full rounded-4xl  p-4 overflow-y-auto border-4 border-SatDeck_Accents
                 backdrop-blur-lg
                         ">
                     <h1 class="text-cyan-300 font-[Rajdhani] text-2xl">Currently Viewing:</h1>
@@ -264,7 +274,7 @@
                             
                         </div>
                         </div>
-                        <div class="w-full h-fit text-cyan-100 font-[notosans] text-xl mt-3">TLEs last updated on: <span class="text-white">11-12-2026</span></div>
+                        <div class="w-full h-fit text-cyan-100 font-bold font-[Rajdhani] text-xl mt-3">TLEs last updated on: <span class="text-white">11-12-2026</span></div>
                     </div>
                     
                 </div>
@@ -278,11 +288,11 @@
             <!-- #region Header -->
               <span class="text-cyan-100 text-lg font-bold border-b-2 border-b-SatDeck_Accents w-full pl-2"
                 style="font-family: helvetica-bold, sans-serif;">TLE DATA</span>
-             <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
+             <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent">
                 <span class="text-gray-200 text-lg w-1/5 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">Line 1:</span>
                 <span id="tle_line1" class="text-gray-200 text-lg w-4/5 pl-2 font-normal text-center" style="font-family: Rajdhani, sans-serif;"> 25544U 98067A 25319.38552854 .00013221 00000+0 24188-3 0 9994</span>
-            </div> <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
+            </div> <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent">
                 <span class="text-gray-200 text-lg w-1/5 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">Line 2:</span>
                 <span id="tle_line2" class="text-gray-200 text-lg w-4/5 pl-2 font-normal text-center" style="font-family: Rajdhani, sans-serif;"> 25544U 98067A 25319.38552854 .00013221 00000+0 24188-3 0 9994</span>
@@ -292,7 +302,7 @@
             <span class="text-cyan-100 text-lg font-bold border-b-2 border-b-SatDeck_Accents w-full pl-2"
                 style="font-family: helvetica-bold, sans-serif;">POSITION AND MOTION</span>
 
-            <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
+            <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">Speed (Km/h):</span>
                 <span id="SI_Speed" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center" style="font-family: Rajdhani, sans-serif;"></span>
@@ -301,17 +311,17 @@
             <span class="text-gray-200 font-bold text-xl border-b-2 border-b-SatDeck_Accents w-full pl-2"
                 style="font-family: Rajdhani, sans-serif;">Geodetic Position :</span>
 
-            <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
+            <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">Latitude:</span>
                 <span id="SI_Latitude" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center" style="font-family: Rajdhani, sans-serif;"></span>
             </div>
-            <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
+            <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">Longitude:</span>
                 <span id="Longitude" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center" style="font-family: Rajdhani, sans-serif;"></span>
             </div>
-            <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
+            <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">Altitude (km):</span>
                 <span id="SI_Altitude" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center" style="font-family: Rajdhani, sans-serif;"></span>
@@ -319,17 +329,17 @@
 
             <span class="text-gray-200 font-bold text-xl border-b-2 border-b-SatDeck_Accents w-full pl-2 "
                 style="font-family: Rajdhani, sans-serif;">Velocity Vector (km/s) :</span>
-            <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
+            <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">X-axis:</span>
                 <span id="SI_VV_X_xaxis" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center" style="font-family: Rajdhani, sans-serif;"></span>
             </div>
-            <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
+            <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">Y-axis:</span>
                 <span id="SI_VV_Y_xaxis" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center" style="font-family: Rajdhani, sans-serif;"></span>
             </div>
-            <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
+            <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">Z-axis:</span>
                 <span id="SI_VV_Z_xaxis" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center" style="font-family: Rajdhani, sans-serif;"></span>
@@ -337,17 +347,17 @@
 
             <span class="text-gray-200 font-bold text-xl border-b-2 border-b-SatDeck_Accents w-full pl-2"
                 style="font-family: Rajdhani, sans-serif;">ECI Coordinates (km) :</span>
-            <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
+            <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">X-axis:</span>
                 <span id="SI_ECI_X_xaxis" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center" style="font-family: Rajdhani, sans-serif;"></span>
             </div>
-            <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
+            <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">Y-axis:</span>
                 <span id="SI_ECI_Y_xaxis" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center" style="font-family: Rajdhani, sans-serif;"></span>
             </div>
-            <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
+            <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">Z-axis:</span>
                 <span id="SI_ECI_Z_xaxis" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center" style="font-family: Rajdhani, sans-serif;"></span>
@@ -355,17 +365,17 @@
 
             <span class="text-gray-200 font-bold text-xl border-b-2 border-b-SatDeck_Accents w-full pl-2"
                 style="font-family: Rajdhani, sans-serif;">ECEF Coordinates (km) :</span>
-            <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
+            <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">X-axis:</span>
                 <span id="SI_ECEF_X_xaxis" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center" style="font-family: Rajdhani, sans-serif;"></span>
             </div>
-            <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
+            <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">Y-axis:</span>
                 <span id="SI_ECEF_Y_xaxis" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center" style="font-family: Rajdhani, sans-serif;"></span>
             </div>
-            <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
+            <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">Z-axis:</span>
                 <span id="SI_ECEF_Z_xaxis" class="text-gray-200 font-normal text-lg w-1/2 pl-2 text-center" style="font-family: Rajdhani, sans-serif;"></span>
@@ -375,47 +385,47 @@
 
             <span class="text-cyan-100 text-lg font-bold border-b-2 border-b-SatDeck_Accents w-full pl-2"
                 style="font-family: helvetica-bold,sans-serif;">ORBITAL GEOMETRY</span>
-            <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
+            <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">Orbital Regime:</span>
                 <span id="SI_Orbital_Regim" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center" style="font-family: Rajdhani, sans-serif;"></span>
             </div>
-            <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
+            <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">Semi Major Axis:</span>
                 <span id="SI_Semi_Major_Axis" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center" style="font-family: Rajdhani, sans-serif;"></span>
             </div>
-            <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
+            <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">Apogee altitude:</span>
                 <span id="SI_Apogee_altitude" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center" style="font-family: Rajdhani, sans-serif;"></span>
             </div>
-            <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
+            <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">Perigee altitude:</span>
                 <span id="SI_Preigee_altitude" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center" style="font-family: Rajdhani, sans-serif;"></span>
             </div>
-            <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
+            <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">Orbital Period:</span>
                 <span id="SI_Orbital_Period" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center" style="font-family: Rajdhani, sans-serif;"></span>
             </div>
-            <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
+            <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">Eccentricity:</span>
                 <span id="SI_Eccentricity" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center" style="font-family: Rajdhani, sans-serif;"></span>
             </div>
-            <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
+            <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">Inclination:</span>
                 <span id="SI_Inclination" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center" style="font-family: Rajdhani, sans-serif;"></span>
             </div>
-            <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
+            <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">Mean Anomaly:</span>
                 <span id="SI_Mean_Anomaly" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center" style="font-family: Rajdhani, sans-serif;"></span>
             </div>
-            <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
+            <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">RAAN:</span>
                 <span id="SI_RAAN" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center " style="font-family: Rajdhani, sans-serif;"></span>
@@ -424,22 +434,22 @@
 
             <span class="text-cyan-100 text-lg font-bold border-b-2 border-b-SatDeck_Accents w-full pl-2"
                 style="font-family: helvetica-bold,sans-serif;">TOPOCENTRIC POSITIONING METRICS</span>
-            <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
+            <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">Azimuth:</span>
                 <span id="SI_Azimuth" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center" style="font-family: Rajdhani, sans-serif;"></span>
             </div>
-            <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
+            <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">Elevation:</span>
                 <span id="SI_Elevation" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center" style="font-family: Rajdhani,sans-serif;"></span>
             </div>
-            <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
+            <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">Range:</span>
                 <span id="SI_Range" class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center" style="font-family: Rajdhani,sans-serif;"></span>
             </div>
-            <div class="h-fit flex flex-row items-center justify-center w-full bg-SatDeck_List_dark">
+            <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent">
                 <span class="text-gray-200 text-lg w-1/2 pl-2 border-r-2 border-SatDeck_Accents font-bold"
                     style="font-family: Rajdhani, sans-serif;">Range Rate:</span>
                 <span id="SI_Range_Rate"class="text-gray-200 text-lg w-1/2 pl-2 font-normal text-center" style="font-family: Rajdhani,sans-serif;"></span>

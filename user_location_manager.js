@@ -25,6 +25,8 @@ export function requestHomeObserver(){
 
     if (!("geolocation" in navigator)) {
         observerError = "Geolocation not supported";
+        observerMode = "custom";
+        observerReady = true;
         return;
     }
 
@@ -36,6 +38,10 @@ export function requestHomeObserver(){
         },
         err => {
             observerError = err.message;
+
+            // 🔁 FALLBACK TO CUSTOM
+            observerMode  = "custom";
+            observerReady = true;
         },
         {
             enableHighAccuracy: true,
@@ -44,6 +50,7 @@ export function requestHomeObserver(){
         }
     );
 }
+
 
 // Boot in home mode
 requestHomeObserver();

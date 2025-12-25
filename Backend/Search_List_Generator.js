@@ -22,7 +22,7 @@ export function initSatelliteSearch(satellites) {
             const s = currentArray[i];
             const btn = document.createElement("button");
             btn.className =
-                "w-full h-[2rem] bg-SatDeck_List_dark flex-shrink-0 font-[notosans] text-white flex flex-row text-md px-2 items-center hover:bg-SatDeck_Accents cursor-pointer active:text-SatDeck_Primary_Dark truncate overflow-ellipsies white-space:nowrap";
+                "w-full h-[2rem] bg-transparent flex-shrink-0 font-[notosans] text-white flex flex-row text-md px-2 items-center hover:bg-SatDeck_Accents cursor-pointer active:text-SatDeck_Primary_Dark truncate overflow-ellipsies white-space:nowrap";
             btn.innerHTML = `
                <span class="flex-1/3 text-gray-400">${s.noradId}</span>
                <span class="flex-2/3  pl-2">${s.name}</span>

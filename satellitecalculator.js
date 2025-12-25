@@ -290,7 +290,7 @@ export async function calculateGroundTrack(durationMinutes =200, stepSeconds = 3
 
 function update() {
   if (observerError) {
-    console.error("Observer error:", observerError);
+     LargestContentfulPaint
     return;
   }
 
