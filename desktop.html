@@ -278,7 +278,20 @@
                     </div>
                     
                 </div>
-                <div id="3D_Visualizer" class="w-1/2 h-full "></div>
+                <div class="w-1/2 h-full p-1 border-4 overflow-hidden">
+                    <div id="earth-panel" class="w-full h-full rounded-4xl overflow-hidden border-4 border-cyan-600 relative group">
+
+                    <!-- MAX BUTTON -->
+                    <button id="earth-max-btn"
+                            class="absolute top-3 right-3 z-20 hidden group-hover:flex
+                             bg-black/60 text-cyan-400 p-2 rounded-lg hover:bg-black">
+                             ⤢
+                     </button>
+
+    <div id="3D_Visualizer" class="w-full h-full"></div>
+  </div>
+</div>
+
             </div>
             <div id="map" class="w-full h-1/2  "></div>
         </div>
@@ -503,7 +516,28 @@
             // Run on load
             updateLocationFields();
         </script>
+        <script>
+            const earthPanel = document.getElementById("earth-panel");
+const maxBtn = document.getElementById("earth-max-btn");
 
+let earthMax = false;
+
+function toggleEarthMax() {
+  earthMax = !earthMax;
+
+  earthPanel.classList.toggle("earth-maximized", earthMax);
+  document.body.classList.toggle("earth-focus", earthMax);
+
+  onWindowResize(); // your existing resize function
+}
+
+maxBtn.addEventListener("click", toggleEarthMax);
+
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && earthMax) toggleEarthMax();
+});
+
+        </script>
 
         
         <script type="module" src="./Backend/Search_List_Generator.js"></script>

@@ -68,9 +68,6 @@ function updateSun() {
 }
 
 
-const axesHelper = new THREE.AxesHelper(2); // length = 2 units
-scene.add(axesHelper);
-
 
 
 const sunLight = new THREE.DirectionalLight(0xffffff, 2);

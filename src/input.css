@@ -10,6 +10,25 @@ html, body {
   padding: 0;
 }
 
+#3D_Visualizer{
+    box-sizing: content-box;
+}
+.earth-maximized {
+  position: fixed !important;
+  inset: 6% !important;
+  width: auto !important;
+  height: auto !important;
+  z-index: 9999 !important;
+  background: #050b0f;
+  box-shadow: 0 0 60px rgba(0,255,255,.35);
+}
+body.earth-focus::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.65);
+  z-index: 9998;
+}
 
 @theme {
     --color-SatDeck_Primary: #030e13;
