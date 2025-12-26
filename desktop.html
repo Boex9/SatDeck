@@ -21,11 +21,38 @@
 
 
     <!-- Fixed Header -->
-    <div id="Header" class="_Dark h-12 w-full  flex flex-row items-center shrink-0">
-        <div class="h-full p-2 relative w-full  bg-SatDeck_Primary flex items-center border-b border-SatDeck_Accents">
-            <img src="./Icons/SatDeck_Logo.png" alt="SatDeck Logo" class="h-full object-contain">
-        </div>
-    </div>
+   <div id="Header" class="_Dark h-12 w-full flex flex-row items-center shrink-0">
+  <div class="h-full p-2 relative w-full bg-SatDeck_Primary flex items-center border-b border-SatDeck_Accents">
+
+    <!-- SatDeck Logo -->
+    <img src="./Icons/SatDeck_Logo.png"
+         alt="SatDeck Logo"
+         class="h-full object-contain">
+
+    <!-- Spacer pushes GitHub to right -->
+    <div class="flex-grow"></div>
+
+    <!-- GitHub Button -->
+    <a href="https://github.com/Boex9/SatDeck"
+       target="_blank"
+       class="group h-full flex items-center px-2">
+
+
+      <img src="./Icons/github.png"
+           class="h-full object-contain opacity-40
+                  transition-all duration-200
+                  group-hover:opacity-100
+                  group-hover:drop-shadow-[0_0_6px_white]
+                  cursor-pointer
+                  "
+                onmouseenter="showTooltip(event, 'Check out the project on Github')"
+                                    onmouseleave="hideTooltip()"
+           alt="GitHub Repo" />
+    </a>
+
+  </div>
+</div>
+
 
     <!-- Content area that takes remaining height -->
     <div id="Content"
@@ -278,19 +305,40 @@
                     </div>
                     
                 </div>
-                <div class="w-1/2 h-full p-1 border-4 overflow-hidden">
-                    <div id="earth-panel" class="w-full h-full rounded-4xl overflow-hidden border-4 border-cyan-600 relative group">
+               <div class="w-1/2 h-full p-1 border-4 overflow-hidden">
+  <div id="earth-panel" class="w-full h-full rounded-4xl overflow-hidden border-4 border-cyan-600 relative group">
 
-                    <!-- MAX BUTTON -->
-                    <button id="earth-max-btn"
-                            class="absolute top-3 right-3 z-20 hidden group-hover:flex
-                             bg-black/60 text-cyan-400 p-2 rounded-lg hover:bg-black">
-                             ⤢
-                     </button>
+    <!-- MAX BUTTON -->
+    <button id="earth-max-btn"
+      class="absolute top-3 right-3 z-20 hidden group-hover:flex
+      bg-black/60 text-cyan-400 p-2 rounded-lg hover:bg-black">
+      ⤢
+    </button>
 
+    <!-- 3D CANVAS CONTAINER -->
     <div id="3D_Visualizer" class="w-full h-full"></div>
+
+    <!-- EARTH HUD OVERLAY -->
+    <div id="earthHUD" class="pointer-events-none absolute inset-0 hidden z-10 p-4">
+
+      <!-- SATDECK LOGO -->
+      <div class="absolute bottom-10 left-10 flex items-center gap-2 text-white font-semibold">
+        <img src="./Icons/SatDeck_Logo.png" class="w-fit h-10 opacity-80" />
+      </div>
+
+      <!-- INFO STACK -->
+      <div class="absolute top-4 right-10 text-right text-white space-y-1">
+        <div id="hudTime" class="text-md font-[Rajdhani] font-bold">POLAR</div>
+        <div id="hudPath" class="text-md font-[Rajdhani] font-bold">123 (Future)</div>
+        <div id="hudSatName" class="text-md font-[Rajdhani] font-bold">POLAR</div>
+        <div id="hudDate" class="text-md font-[Rajdhani] font-bold">13/7/26</div>
+      </div>
+
+    </div>
+
   </div>
 </div>
+
 
             </div>
             <div id="map" class="w-full h-1/2  "></div>
@@ -476,18 +524,35 @@
         <script>
             const tooltip = document.getElementById('tooltip');
 
-            function showTooltip(e, text) 
-            {
-                tooltip.innerText = text;
+           function showTooltip(e, text) {
+  tooltip.innerText = text;
+  tooltip.classList.remove("hidden");
 
-                const rect = e.target.getBoundingClientRect();
+  const targetRect = e.target.getBoundingClientRect();
+  const tipRect = tooltip.getBoundingClientRect();
 
-                // Position slightly above the hovered element
-                tooltip.style.left = rect.left + rect.width / 2 + "px";
-                tooltip.style.top = (rect.top - 35) + "px";
+  const margin = 10;
 
-                tooltip.classList.remove("hidden");
-            }
+  let left = targetRect.left + targetRect.width / 2 - tipRect.width / 2;
+  let top  = targetRect.top - tipRect.height - margin;
+
+  // Flip vertically if going above screen
+  if (top < margin) {
+    top = targetRect.bottom + margin;
+  }
+
+  // Clamp horizontally inside viewport
+  if (left < margin) {
+    left = margin;
+  }
+  else if (left + tipRect.width > window.innerWidth - margin) {
+    left = window.innerWidth - tipRect.width - margin;
+  }
+
+  tooltip.style.left = left + "px";
+  tooltip.style.top  = top  + "px";
+}
+
 
             function hideTooltip() 
             {
@@ -517,25 +582,74 @@
             updateLocationFields();
         </script>
         <script>
-            const earthPanel = document.getElementById("earth-panel");
-const maxBtn = document.getElementById("earth-max-btn");
 
-let earthMax = false;
+            function getPathSettings() {
+            const valInput  = document.getElementById("durationInput");
+            const unitInput = document.getElementById("durationUnit");
+            const dirInput  = document.querySelector('input[name="Path_duration"]:checked');
 
-function toggleEarthMax() {
-  earthMax = !earthMax;
+            if (!valInput || !unitInput || !dirInput) return null;
 
-  earthPanel.classList.toggle("earth-maximized", earthMax);
-  document.body.classList.toggle("earth-focus", earthMax);
+            return {
+                value: valInput.value,
+                unit: unitInput.value,
+                dir: dirInput.value   // forward | both | backward
+            };
+            }
 
-  onWindowResize(); // your existing resize function
+            function updateEarthHUD() {
+            const t = new Date();
+
+            const hudTime = document.getElementById("hudTime");
+            const pathEl = document.getElementById("hudPath");
+            const hudDate = document.getElementById("hudDate");
+            const nameEl = document.getElementById("hudSatName");
+            const satname = document.getElementById("Sat_Name");
+            const pathlength = document.getElementById("durationInput");
+            if (!nameEl || !pathEl ) return; // not maximized yet
+            
+            
+            nameEl.textContent =
+            `Satellite Name : ${satname.textContent}` || "No satellite selected";
+
+
+            hudTime.textContent =
+            "UTC Time : " + t.toISOString().slice(11, 19);
+
+              const path = getPathSettings();
+
+  if (path && path.value) {
+
+    const dirSymbol = {
+      forward: "+",
+      both: "±",
+      backward: "-"
+    }[path.dir];
+
+    const unitShort = {
+      minutes: "min",
+      hours: "hr",
+      days: "day"
+    }[path.unit];
+
+    pathEl.textContent =
+      `Path: ${dirSymbol} ${path.value} ${unitShort}`;
+  }
+  else {
+    pathEl.textContent = "Path: --";
+  }
+
+            hudDate.textContent =
+            `Current Date :
+            ${t.toUTCString().slice(0, 16)}`
+            }
+            
+            function animate() {
+  requestAnimationFrame(animate);
+
+  updateEarthHUD();
+  renderer.render(scene, camera);
 }
-
-maxBtn.addEventListener("click", toggleEarthMax);
-
-document.addEventListener("keydown", e => {
-  if (e.key === "Escape" && earthMax) toggleEarthMax();
-});
 
         </script>
 

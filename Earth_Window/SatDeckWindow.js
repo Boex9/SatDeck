@@ -75,6 +75,7 @@ const orbitcontrols = Orbit(camera, renderer);
 function animate() {
   requestAnimationFrame(animate);
 
+  updateEarthHUD();
   orbitcontrols.update();
   renderer.render(scene, camera);
 }
@@ -100,3 +101,23 @@ window.addEventListener("resize", onWindowResize);
 // Optional: also listen for container resizes (if 3D_Visualizer isn’t full window)
 const resizeObserver = new ResizeObserver(() => onWindowResize());
 resizeObserver.observe(earhtwindow);
+
+const earthPanel = document.getElementById("earth-panel");
+            const maxBtn = document.getElementById("earth-max-btn");
+
+            let earthMax = false;
+
+            function toggleEarthMax() {
+            earthMax = !earthMax;
+
+            earthPanel.classList.toggle("earth-maximized", earthMax);
+            document.body.classList.toggle("earth-focus", earthMax);
+            
+            onWindowResize(); // your existing resize function
+            }
+
+            maxBtn.addEventListener("click", toggleEarthMax);
+
+            document.addEventListener("keydown", e => {
+            if (e.key === "Escape" && earthMax) toggleEarthMax();
+            });

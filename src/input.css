@@ -13,15 +13,28 @@ html, body {
 #3D_Visualizer{
     box-sizing: content-box;
 }
+
+.earth-maximized #earthHUD {
+  display: block;
+}
 .earth-maximized {
   position: fixed !important;
-  inset: 6% !important;
-  width: auto !important;
-  height: auto !important;
-  z-index: 9999 !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+
+  width: 90vw !important;
+  height: 60vw !important;      /* 1.5 : 1 ratio */
+
+  max-width: 1200px !important;
+  max-height: 800px !important;
+
   background: #050b0f;
   box-shadow: 0 0 60px rgba(0,255,255,.35);
+  z-index: 9999 !important;
 }
+
+
 body.earth-focus::before {
   content: "";
   position: fixed;
