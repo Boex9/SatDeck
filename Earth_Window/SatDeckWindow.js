@@ -68,12 +68,6 @@ function updateSun() {
 }
 
 
-
-
-const sunLight = new THREE.DirectionalLight(0xffffff, 2);
-scene.add(sunLight);
-
-
 // Controls
 const orbitcontrols = Orbit(camera, renderer);
 
@@ -81,7 +75,6 @@ const orbitcontrols = Orbit(camera, renderer);
 function animate() {
   requestAnimationFrame(animate);
 
-  updateSun();
   orbitcontrols.update();
   renderer.render(scene, camera);
 }
