@@ -3,11 +3,12 @@ const BASE_URL = "https://satdeck-worker.navaneetrahut0xyz.workers.dev"
 
 
 export var Satellites_array;
+export var satelites_date;
 // Function to fetch TLE DATA
 async function fetchtle() {
 
     const tles  = await fetch(`${BASE_URL}/fetchtle`, {method: "POST", });
-    console.log("Trying to fetch data from Cloudflare.");
+    console.log("Trying to fetch date from Cloudflare.");
 
     if (!tles.ok)
     {
@@ -71,5 +72,18 @@ async function getSatellites() {
     return parseTLE(rawData);
 }
 
+async function initTLEDate() {
+    const date = await fecthdate();
+    if (!date) return;
 
-Satellites_array = getSatellites()
+    window.tleupdatedate = date;
+    console.log("TLE Last Update:", window.tleupdatedate);
+
+    const el = document.getElementById("Tle_update_date");
+    if (el) el.innerText = window.tleupdatedate;
+}
+
+(async () => {
+    await initTLEDate();          // runs ONCE
+})();
+Satellites_array = getSatellites();

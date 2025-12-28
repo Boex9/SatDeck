@@ -33,6 +33,7 @@
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
     --radius-lg: 0.5rem;
+    --radius-2xl: 1rem;
     --radius-4xl: 2rem;
     --animate-spin: spin 1s linear infinite;
     --blur-lg: 16px;
@@ -42,6 +43,7 @@
     --default-mono-font-family: var(--font-mono);
     --color-SatDeck_Primary: #030e13;
     --color-SatDeck_Primary_Dark: #04161e;
+    --color-SatDeck_Primary_DarkHover: #010f13;
     --color-SatDeck_Accents: #208ea8;
     --color-SatDeck_Accents_dark: #155160;
     --color-SatDeck_List_dark: #082c3c;
@@ -429,9 +431,6 @@
   .gap-2 {
     gap: calc(var(--spacing) * 2);
   }
-  .gap-3 {
-    gap: calc(var(--spacing) * 3);
-  }
   .space-y-1 {
     :where(& > :not(:last-child)) {
       --tw-space-y-reverse: 0;
@@ -458,6 +457,9 @@
   }
   .overflow-y-auto {
     overflow-y: auto;
+  }
+  .rounded-2xl {
+    border-radius: var(--radius-2xl);
   }
   .rounded-4xl {
     border-radius: var(--radius-4xl);
@@ -492,6 +494,10 @@
     border-bottom-style: var(--tw-border-style);
     border-bottom-width: 2px;
   }
+  .border-b-3 {
+    border-bottom-style: var(--tw-border-style);
+    border-bottom-width: 3px;
+  }
   .border-SatDeck_Accents {
     border-color: var(--color-SatDeck_Accents);
   }
@@ -519,6 +525,9 @@
   .bg-SatDeck_Primary {
     background-color: var(--color-SatDeck_Primary);
   }
+  .bg-SatDeck_Primary_DarkHover {
+    background-color: var(--color-SatDeck_Primary_DarkHover);
+  }
   .bg-black {
     background-color: var(--color-black);
   }
@@ -534,9 +543,6 @@
   .bg-gradient-to-b {
     --tw-gradient-position: to bottom in oklab;
     background-image: linear-gradient(var(--tw-gradient-stops));
-  }
-  .bg-\[url\(\'\/Icons\/SatDeck_background\.png\'\)\] {
-    background-image: url('/Icons/SatDeck_background.png');
   }
   .from-SatDeck_Accents_dark {
     --tw-gradient-from: var(--color-SatDeck_Accents_dark);
