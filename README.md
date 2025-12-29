@@ -11,11 +11,8 @@ Optionally, TLEs can be fetched from public sources such as CelesTrak, making it
 ---
 
 ## Preview
-
-![ISS Zaraya](screenshots/screenshot1.png)  
 ![Calsphere 1](screenshots/screenshot3.png)  
 ![Lageos 2](screenshots/screenshot4.png)  
-![CXO](screenshots/screenshot2.png)
 ---
 
 ##  How to Run
@@ -40,7 +37,7 @@ python -m http.server
 NOTE: Don't directly open the .html file it won't work.
 If everything is working, you should see something like this:
 
-![Lageos 1](screenshots/screenshot4.png)  
+![ISS Zaraya](screenshots/screenshot1.png)  
 
 If you want to learn about the working of the webapp and customize it then refer to the customization guide.
 [Customization_guide.md](CUSTOMIZATION_GUIDE.md)
