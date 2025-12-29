@@ -11,8 +11,9 @@ Optionally, TLEs can be fetched from public sources such as CelesTrak, making it
 ---
 
 ## Preview
-![Calsphere 1](screenshots/screenshot3.png)  
 ![Lageos 2](screenshots/screenshot4.png)  
+![Calsphere 1](screenshots/screenshot3.png)  
+
 ---
 
 ##  How to Run
