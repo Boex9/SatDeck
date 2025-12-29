@@ -1,6 +1,6 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.178.0/build/three.module.js";
 import { scene } from "../SatDeckWindow.js";
-import {Sat_Data} from "../../satellitecalculator.js"
+import {Sat_Data} from "../../Backend/satellitecalculator.js"
 import { calculateOrbitPath } from "./RenderOrbit.js";
 import { camera } from "../SatDeckWindow.js";
 import { orbitDurationMinutes } from "../../Backend/OrbitInputManager.js";

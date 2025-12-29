@@ -1,5 +1,5 @@
 import { calculateGroundTrack , getSunLatLon} from './satellitecalculator.js';
-import { orbitDurationMinutes } from './Backend/OrbitInputManager.js';
+import { orbitDurationMinutes } from './OrbitInputManager.js';
 import { observer, observerReady } from "./user_location_manager.js";
 
 

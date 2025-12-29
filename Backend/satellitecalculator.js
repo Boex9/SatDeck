@@ -1,4 +1,4 @@
-import {Satellites_array} from './Backend/tle_fetcher.js';
+import {Satellites_array} from './tle_fetcher.js';
 import { observer, observerReady, observerError } from "./user_location_manager.js";
 
 
@@ -300,10 +300,6 @@ function update() {
     return;
   }
 
-  console.log("Observer ready:", {
-    lat: observer.latitude * 180 / Math.PI,
-    lon: observer.longitude * 180 / Math.PI
-  });
 }
 
 update();

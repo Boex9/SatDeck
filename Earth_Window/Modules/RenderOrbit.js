@@ -1,5 +1,5 @@
 import { LatLonAltToXYZ } from "./DeploySatellite.js";
-import { satellites_map_array } from "../../satellitecalculator.js";
+import { satellites_map_array } from "../../Backend/satellitecalculator.js";
 
 export async function calculateOrbitPath(
     noradId,

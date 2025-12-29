@@ -1,6 +1,6 @@
-import{azimuthToCompass,Sat_Data,satellites_map_array} from '../satellitecalculator.js'
+import{azimuthToCompass,Sat_Data,satellites_map_array} from './satellitecalculator.js'
 import { updateOrbitDuration } from './OrbitInputManager.js';
-import { observer } from '../user_location_manager.js';
+import { observer } from './user_location_manager.js';
 
 
 // IT TAKES THE DATA FROM OTHER SCRIPTS AND THEN ASSIGNS THOSE DATA VALUES TO THE RESPECTIVE DOM ELEMENTS

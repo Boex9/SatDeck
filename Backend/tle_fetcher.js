@@ -43,7 +43,6 @@ async function getSatellites() {
     const rawData = await fetchtle();    // Measuring how much time it took to fetch more useful when we are taking tles from the cloud
     console.timeEnd("fetchtle");         // end timing fetch
 
-    console.log("Fetched data successfully from Cloudflare.");
     return parseTLE(rawData);
 }
 
