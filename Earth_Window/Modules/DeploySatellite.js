@@ -77,7 +77,7 @@ setInterval(() => {
     UpdateSatelliteMarkerScale(mySatellite, camera);
 }, 100);
 
-export async function renderOrbitPath(scene, noradId) {
+async function renderOrbitPath(scene, noradId) {
     // remove old orbit lines
     orbitLines.forEach(line => scene.remove(line));
     orbitLines = [];

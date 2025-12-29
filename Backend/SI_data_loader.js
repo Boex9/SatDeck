@@ -109,10 +109,6 @@ if(window.satlistready === true)
     `Your Location :- Lat: ${(observer.latitude * RAD2DEG).toFixed(5)}°  Lon: ${(observer.longitude * RAD2DEG).toFixed(5)}°`;
 
 
-
-    // enforce min/max dynamically
-
-
     satllitecountspan.textContent = "Total " +satellites_map_array.length +" satellites available";
 }
 
@@ -150,7 +146,3 @@ function applyClamp() {
 
     updateOrbitDuration(val, unit);
 }
-
-
-
-

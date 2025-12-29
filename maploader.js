@@ -2,16 +2,18 @@ import { calculateGroundTrack , getSunLatLon} from './satellitecalculator.js';
 import { orbitDurationMinutes } from './Backend/OrbitInputManager.js';
 import { observer, observerReady } from "./user_location_manager.js";
 
+
+// ---- NO IDEA HOW ANY OF THIS WORKS USED CHATGPT FOR HELP-------
 const map = L.map('map', { 
     center: [20, 77], 
     zoom: 3, 
     minZoom: 1, 
     maxZoom: 13 ,
-    maxBounds: [[-90, -180], [90, 180]], // limit to the real world
+    maxBounds: [[-90, -180], [90, 180]], // limit to the real world cordinates
     maxBoundsViscosity: 1.0 // bounce back when trying to drag out
 });
 
-// Base layer
+// Base layer 
 L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png', { 
     attribution: '© OSM' 
 }).addTo(map);
@@ -23,7 +25,7 @@ L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}
 let satOrbit = null;
 let satMarker = null;
 
-// Draw satellite marker
+// Drwaing the satellite marker for the map
 function drawSatelliteDot(lat, lon) {
     if (satMarker) {
         map.removeLayer(satMarker);
@@ -37,7 +39,7 @@ function drawSatelliteDot(lat, lon) {
     }).addTo(map);
 }
 
-// Listen for updatess
+// Listening for updatess in path duraton 
 window.addEventListener('satelliteUpdated', async (e) => {
     const sat = e.detail;
 
@@ -61,13 +63,13 @@ window.addEventListener('satelliteUpdated', async (e) => {
         )
     ).addTo(map);
 
-    // Wrap marker
+    
     const wrappedSat = map.wrapLatLng([sat.latitude, sat.longitude]);
     drawSatelliteDot(wrappedSat.lat, wrappedSat.lng);
 });
 
 
-// Create a marker (could use a custom Sun icon)
+
 const sunIcon = L.icon({
     iconUrl: "./Icons/sun.png",
     iconSize: [10, 10]

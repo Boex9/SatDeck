@@ -1,40 +1,15 @@
-
-const BASE_URL = "https://satdeck-worker.navaneetrahut0xyz.workers.dev"
-
-
 export var Satellites_array;
 export var satelites_date;
 // Function to fetch TLE DATA
 async function fetchtle() {
+    const res = await fetch("./Backend/tledata.txt");
 
-    const tles  = await fetch(`${BASE_URL}/fetchtle`, {method: "POST", });
-    console.log("Trying to fetch date from Cloudflare.");
-
-    if (!tles.ok)
-    {
-        console.error("Network error, status:", tles.status);
+    if (!res.ok) {
+        console.error("Failed to load local TLE file:", res.status);
         return;
     }
-    
-    return tles.json();
-}
 
-// Function to fetch Last Update Date
-async function fecthdate() {
-
-    const last_update = await fetch(`${BASE_URL}/fetchdate`,{ method: "POST" });
-
-    if (!last_update.ok)
-    {
-        console.error("Network error, status:", last_update.status);
-        return;
-    }
-    else {
-        console.log("Fetched date successfully from Cloudflare.");
-    }
-
-    const date = await last_update.text();
-    return date;
+    return await res.text();
 }
 
 
@@ -51,7 +26,7 @@ function parseTLE(rawData) {
         const line1 = lines[i + 1];
         const line2 = lines[i + 2];
 
-        if (!line1 || !line2) continue; // skip incomplete entries
+        if (!line1 || !line2) continue; // Skip incomplete entries
 
         // Extract NORAD ID from line1 (characters 2-7)
         const noradId = line1.slice(2, 7).trim();
@@ -65,25 +40,12 @@ function parseTLE(rawData) {
 
 async function getSatellites() {
     console.time("fetchtle");            // start timing fetch
-    const rawData = await fetchtle();
+    const rawData = await fetchtle();    // Measuring how much time it took to fetch more useful when we are taking tles from the cloud
     console.timeEnd("fetchtle");         // end timing fetch
 
     console.log("Fetched data successfully from Cloudflare.");
     return parseTLE(rawData);
 }
 
-async function initTLEDate() {
-    const date = await fecthdate();
-    if (!date) return;
 
-    window.tleupdatedate = date;
-    console.log("TLE Last Update:", window.tleupdatedate);
-
-    const el = document.getElementById("Tle_update_date");
-    if (el) el.innerText = window.tleupdatedate;
-}
-
-(async () => {
-    await initTLEDate();          // runs ONCE
-})();
 Satellites_array = getSatellites();

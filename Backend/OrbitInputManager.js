@@ -1,4 +1,4 @@
-export let orbitDurationMinutes = 10; // default
+export let orbitDurationMinutes = 10; // Variable that stores the pathduration in minutes
 
 // Called ONLY when clamped, final safe value is ready
 export function updateOrbitDuration(value, unit) {

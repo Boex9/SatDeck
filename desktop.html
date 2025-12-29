@@ -17,10 +17,6 @@
       <!-- Fixed Header -->
       <div id="Header" class="_Dark h-12 w-full flex flex-row items-center shrink-0">
          <div class="h-full p-2 relative w-full bg-SatDeck_Primary flex items-center border-b-2 border-SatDeck_Accents">
-            <!-- SatDeck Logo -->
-            <img src="./Icons/SatDeck_Logo.png"
-               alt="SatDeck Logo"
-               class="h-full object-contain">
             <!-- Spacer pushes GitHub to right -->
             <div class="flex-grow"></div>
             <!-- GitHub Button -->
@@ -220,7 +216,9 @@
                               <input placeholder="0" id="durationInput" type="number" value="10" class=" [appearance:textfield]
                                  [&::-webkit-inner-spin-button]:appearance-none
                                  [&::-webkit-outer-spin-button]:appearance-none
-                                 py-1 w-18 text-xl text-center font-[Rajdhani] font-bold border-2 border-transparent text-white px-2 focus:outline-none focus:border-SatDeck_Accents hover:border-SatDeck_Accents_dark hover:border-2">
+                                 py-1 w-18 text-xl text-center font-[Rajdhani] font-bold border-2 border-transparent text-white px-2 focus:outline-none focus:border-SatDeck_Accents hover:border-SatDeck_Accents_dark hover:border-2"
+                                    onmouseenter="showTooltip(event, 'Set the Path duration, NOTE: Setting this value too high can impact performance.')"
+                                    onmouseleave="hideTooltip()">
                               <select id="durationUnit" class="
                                  appearance-none
                                  bg-transparent 
@@ -243,7 +241,7 @@
                               </select>
                            </div>
                         </div>
-                        <div  class="w-full h-fit text-cyan-100 font-bold font-[Rajdhani] text-xl mt-3">TLEs last updated on: <span id="Tle_update_date" class="text-white">11-12-2026</span></div>
+                        
                      </div>
                   </div>
                </div>
@@ -259,16 +257,13 @@
                      <div id="3D_Visualizer" class="w-full h-full"></div>
                      <!-- EARTH HUD OVERLAY -->
                      <div id="earthHUD" class="pointer-events-none absolute inset-0 hidden z-10 p-4">
-                        <!-- SATDECK LOGO -->
-                        <div class="absolute bottom-10 left-10 flex items-center gap-2 text-white font-semibold">
-                           <img src="./Icons/SatDeck_Logo.png" class="w-fit h-10 opacity-80" />
-                        </div>
+                        
                         <!-- INFO STACK -->
                         <div class="absolute top-4 right-10 text-right text-white space-y-1">
-                           <div id="hudSatName" class="text-md font-[Rajdhani] font-bold">POLAR</div>
-                           <div id="hudPath" class="text-md font-[Rajdhani] font-bold">123 (Future)</div>
-                           <div id="hudTime" class="text-md font-[Rajdhani] font-bold">POLAR</div>
-                           <div id="hudDate" class="text-md font-[Rajdhani] font-bold">13/7/26</div>
+                           <div id="hudSatName" class="text-md font-[Rajdhani] font-bold"></div>
+                           <div id="hudPath" class="text-md font-[Rajdhani] font-bold"></div>
+                           <div id="hudTime" class="text-md font-[Rajdhani] font-bold"></div>
+                           <div id="hudDate" class="text-md font-[Rajdhani] font-bold"></div>
                         </div>
                      </div>
                   </div>
@@ -283,7 +278,7 @@
                <!-- #region Header -->
                <span class="text-cyan-100 text-lg font-bold border-b-2 border-b-SatDeck_Accents w-full pl-2"
                   style="font-family: helvetica-bold, sans-serif;">TLE DATA</span>
-               <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent border  border-SatDeck_Accents">
+               <div class="h-fit flex flex-row items-center justify-center w-full bg-transparent ">
                   <span class="text-gray-200 text-lg w-1/5 pl-2  border-SatDeck_Accents font-bold"
                      style="font-family: Rajdhani, sans-serif;">Line 1:</span>
                   <span id="tle_line1" class="text-gray-200 text-lg w-4/5 pl-2 font-normal text-center" style="font-family: Rajdhani, sans-serif;"> 25544U 98067A 25319.38552854 .00013221 00000+0 24188-3 0 9994</span>
@@ -479,10 +474,6 @@
             }
          </script>
          <script>
-            const tle_update = document.getElementById("Tle_update_date");
-            tle_update.textContent = window.tle_update;
-         </script>
-         <script>
             const homeRadio = document.querySelector('input[value="home"]');
             const pinRadio = document.querySelector('input[value="custom"]');
             const customFields = document.getElementById('customlocationfields');
@@ -561,7 +552,6 @@
                 pathEl.textContent = "Path: --";
             }
             
-            hudDate.textContent =`Current Date :${t.toUTCString().slice(0, 16)}`
             }
             
             function animate() {

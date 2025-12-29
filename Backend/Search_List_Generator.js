@@ -8,10 +8,9 @@ window.currentSatelliteId = "25544";
 export function initSatelliteSearch(satellites) {
     const Satellite_Container = document.getElementById("sat_container");
     const Search_Input_Field = document.getElementById("Search_input");
-    const Search_Button = document.getElementById("Search_button");
 
     let renderedCount = 0;
-    const batchSize = 50; // adjust as needed
+    const batchSize = 50; // The no. of satellites loaded each time we scroll 50% of the div
     let currentArray = satellites;
 
     // Renders next batch of satellites as buttons
@@ -75,11 +74,8 @@ export function initSatelliteSearch(satellites) {
         resetAndRender(filtered);
     }
 
-    // 🔹 Live search as you type
+    // Live search as we type in the search bar
     Search_Input_Field.addEventListener("input", () => performSearch());
-
-    // 🔹 Disable the button (kept for compatibility, but does nothing)
-    Search_Button.disabled = true;
 }
 
 

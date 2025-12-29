@@ -82,14 +82,14 @@ export function updateGPData(tle1, tle2 ,tledata) {
     const pv = satellite.propagate(satrec, now);
     const gmst = satellite.gstime(now);
 
-    // --- Position & velocity ---
+    
     const positionEci = pv.position;
     const velocityEci = pv.velocity;
     const positionEcf = satellite.eciToEcf(positionEci, gmst);
     const velocityEcf = eciToEcfVelocity(velocityEci,positionEcf);
     const geodetic = satellite.eciToGeodetic(positionEci, gmst);
 
-    // --- Update object ---
+
     const earthRadiusKm = 6378.137;
     const semiMajorAxisKm = satrec.a * earthRadiusKm;
     const meanAnomalyNow = satrec.mo;
@@ -142,13 +142,13 @@ export function updateGPData(tle1, tle2 ,tledata) {
 
         timestamp: now.toISOString(),
 
-        // Motion / coordinates
+        
         velocityVector: velocityEci,
         eci: positionEci,
         ecef: positionEcf,
         latitude: satellite.degreesLat(geodetic.latitude),
         longitude: satellite.degreesLong(geodetic.longitude),
-        altitude: geodetic.height, // meters
+        altitude: geodetic.height, 
         meanAnomaly : meanAnomalyNow * (180/Math.PI),
 
         
@@ -157,7 +157,7 @@ export function updateGPData(tle1, tle2 ,tledata) {
         azimuth_direction : azimuthToCompass(lookAngles.azimuth),
         elevation: lookAngles.elevation * (180 / Math.PI),
         rangeKm:   lookAngles.rangeKm,
-        rangeRate: lookAngles.rangeRate    // km/s
+        rangeRate: lookAngles.rangeRate    
     } : null,
 
             
@@ -200,6 +200,7 @@ function classifyOrbitalRegime(sat) {
 
 
 
+// Geting the location of the sun to render the sun in the map
 
 export function getSunLatLon(date = new Date()) {
     // Convert to Julian Day
@@ -303,11 +304,6 @@ function update() {
     lat: observer.latitude * 180 / Math.PI,
     lon: observer.longitude * 180 / Math.PI
   });
-
-  // At this point it is SAFE to:
-  // - compute look angles
-  // - render observer marker
-  // - start satellite updates
 }
 
 update();
