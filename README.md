@@ -1,8 +1,8 @@
-# TLE Playground (formerly SatDeck)
+# SATDECK
 
-TLE Playground is a desktop-first 3D satellite tracking and visualization tool built with JavaScript and Three.js.
+SatDeck is a desktop-first 3D satellite tracking and visualization tool built with JavaScript and Three.js.
 
-This project was originally called **SatDeck** and aimed to become a fully-featured satellite tracking platform similar to  
+The project was originally aimed to become a fully-featured satellite tracking platform similar to  
 n2yo.com, satellitemap.space and other public trackers.
 
 It loads **Two-Line Element (TLE)** data from a local `.txt` file and visualizes satellite orbits around Earth in real time.  
