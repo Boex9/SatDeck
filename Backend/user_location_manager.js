@@ -53,7 +53,6 @@ export function requestHomeObserver(){
 
 
 // Boot in home mode
-requestHomeObserver();
 
 const latInput = document.getElementById("lat_entry");
 const lonInput = document.getElementById("long_entry");
