@@ -54,7 +54,7 @@ const RangeRate = document.getElementById("SI_Range_Rate");
 
 setInterval(()=>{
 if(window.satlistready === true)
-{
+{   satllitecountspan.textContent = "Total " +satellites_map_array.length +" satellites available";
     speedspan.textContent = Number(Sat_Data.speed).toFixed(3);
     latitudeSpan.textContent = JSON.stringify(Number(Sat_Data.latitude.toFixed(3)));
     longitudeSpan.textContent = JSON.stringify(Number(Sat_Data.longitude.toFixed(3)));
@@ -109,7 +109,7 @@ if(window.satlistready === true)
     `Your Location :- Lat: ${(observer.latitude * RAD2DEG).toFixed(5)}°  Lon: ${(observer.longitude * RAD2DEG).toFixed(5)}°`;
 
 
-    satllitecountspan.textContent = "Total " +satellites_map_array.length +" satellites available";
+
 }
 
 },100);

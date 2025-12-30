@@ -77,7 +77,7 @@ function applyCustomObserver(){
 
     setCustomObserver(lat, lon);
 }
-
+applyCustomObserver();
 // Fire when radio selected
 locationRadios.forEach(radio=>{
     radio.addEventListener("change", e=>{
