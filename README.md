@@ -1,5 +1,7 @@
 ![GitHub stars](https://img.shields.io/github/stars/Boex9/SatDeck?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/Boex9/SatDeck?style=social)
+![License](https://img.shields.io/github/license/Boex9/SatDeck)
+
 
 # SATDECK
 
