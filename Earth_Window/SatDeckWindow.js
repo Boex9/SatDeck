@@ -15,6 +15,8 @@ renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.setSize(width, height);
 earhtwindow.appendChild(renderer.domElement);
 
+
+
 // Initial camera position
 camera.position.z = 5;
 

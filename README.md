@@ -40,8 +40,8 @@ If everything is working, you should see something like this:
 
 ![ISS Zaraya](screenshots/screenshot1.png)  
 
-If you want to learn about the working of the webapp and customize it then refer to the customization guide.
-[Customization_guide.md](CUSTOMIZATION_GUIDE.md)
+If you want to learn about the working of the webapp and customize it then refer to the design overview .
+[Design_overview.md](DESIGN_OVERVIEW.md)
 
 ## License
 
