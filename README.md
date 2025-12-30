@@ -1,3 +1,6 @@
+![GitHub stars](https://img.shields.io/github/stars/YOUR_USERNAME/SatDeck?style=social)
+![GitHub forks](https://img.shields.io/github/forks/YOUR_USERNAME/SatDeck?style=social)
+
 # SATDECK
 
 SatDeck is a desktop-first 3D satellite tracking and visualization tool built with JavaScript and Three.js.
