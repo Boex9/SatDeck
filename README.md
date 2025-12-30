@@ -1,5 +1,5 @@
-![GitHub stars](https://img.shields.io/github/stars/YOUR_USERNAME/SatDeck?style=social)
-![GitHub forks](https://img.shields.io/github/forks/YOUR_USERNAME/SatDeck?style=social)
+![GitHub stars](https://img.shields.io/github/stars/Boex9/SatDeck?style=social)
+![GitHub forks](https://img.shields.io/github/forks/Boex9/SatDeck?style=social)
 
 # SATDECK
 
