@@ -36,6 +36,7 @@ python -m http.server
 ### 3. Open the browser and you are good to go.
 
 NOTE: Don't directly open the .html file it won't work.
+
 If everything is working, you should see something like this:
 
 ![ISS Zaraya](screenshots/screenshot1.png)  
